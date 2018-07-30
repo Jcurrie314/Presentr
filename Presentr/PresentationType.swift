@@ -24,6 +24,7 @@ public enum PresentationType {
     case topHalf
     case bottomHalf
     case fullScreen
+	case mostlyFull
     case dynamic(center: ModalCenterPosition)
     case custom(width: ModalSize, height: ModalSize, center: ModalCenterPosition)
 
@@ -40,6 +41,8 @@ public enum PresentationType {
             return (.full, .half)
         case .fullScreen:
             return (.full, .full)
+		case .mostlyFull:
+			return (.full,  .fluid(percentage: 0.92))
         case .custom(let width, let height, _):
             return (width, height)
         case .dynamic(_):
@@ -60,6 +63,8 @@ public enum PresentationType {
             return .bottomCenter
         case .fullScreen:
             return .center
+		case .mostlyFull:
+			return  ModalCenterPosition.customOrigin(origin: CGPoint(x: 0, y: UIScreen.main.bounds.height  * 0.1))
         case .custom(_, _, let center):
             return center
         case .dynamic(let center):
