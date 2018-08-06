@@ -15,6 +15,7 @@ import Foundation
 /// - topHalf: This takes up half of the screen, on the top side.
 /// - bottomHalf: This takes up half of the screen, on the bottom side.
 /// - fullScreen: This takes up the entire screen.
+/// - mostlyFull: This takes up 90% of the screen
 /// - dynamic: Uses autolayout to calculate width & height. Have to provide center position.
 /// - custom: User provided custom width, height & center position.
 public enum PresentationType {
@@ -25,6 +26,7 @@ public enum PresentationType {
     case bottomHalf
     case fullScreen
 	case mostlyFull
+	case like60Percent
     case dynamic(center: ModalCenterPosition)
     case custom(width: ModalSize, height: ModalSize, center: ModalCenterPosition)
 
@@ -43,6 +45,8 @@ public enum PresentationType {
             return (.full, .full)
 		case .mostlyFull:
 			return (.full,  .fluid(percentage: 0.92))
+		case .like60Percent:
+			return (.full,  .fluid(percentage: 0.62))
         case .custom(let width, let height, _):
             return (width, height)
         case .dynamic(_):
@@ -65,6 +69,8 @@ public enum PresentationType {
             return .center
 		case .mostlyFull:
 			return  ModalCenterPosition.customOrigin(origin: CGPoint(x: 0, y: UIScreen.main.bounds.height  * 0.1))
+		case .like60Percent:
+			return  ModalCenterPosition.customOrigin(origin: CGPoint(x: 0, y: UIScreen.main.bounds.height  * 0.4))
         case .custom(_, _, let center):
             return center
         case .dynamic(let center):
